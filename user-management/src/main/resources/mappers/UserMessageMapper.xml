@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhengze.usermanagement.mapper.UserMessageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zhengze.usermanagement.dao.UserMessageDao">
+        <id column="id" property="id" />
+        <result column="userid" property="userId" />
+        <result column="username" property="userName" />
+        <result column="password" property="password" />
+        <result column="telephone" property="telephone" />
+        <result column="status" property="status" />
+        <result column="createtime" property="createTime" />
+        <result column="updatetime" property="updateTime"/>
+    </resultMap>
+
+    <select id="getUserMessage" resultType="com.zhengze.usermanagement.facade.response.GetUserMessageResponse">
+        select u.userid as userId,u.userName as userName,u.password as password,
+         u.telephone as telephone,u.status as status,u.createtime as createtime,
+         u.updatetime as updateTime,r.roleid as roleId
+         from usermessage u,userrolemessage r where u.userid=r.userid
+    </select>
+
+    <insert id="insertUserMessage">
+        insert into usermessage(userid,username,password,status,createtime,updatetime) values (#{userId},#{userName},#{password},#{status},#{createTime},#{updateTime})
+    </insert>
+
+    <delete id="deleteUser">
+        delete from usermessage where  userid=#{userId}
+    </delete>
+
+    <update id="updateUserRole">
+        update userrolemessage set roleid=#{roleId} where userid = #{userId}
+    </update>
+
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhengze.usermanagement.mapper.UserDepartmentMessageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zhengze.usermanagement.dao.UserDepartmentMessageDao">
+        <id column="id" property="id" />
+        <result column="departmentid" property="departmentId" />
+        <result column="userid" property="userId" />
+        <result column="createtime" property="createTime" />
+        <result column="updatetime" property="updateTime"/>
+    </resultMap>
+
+    <select id="getUserIdsByDepartmentId" resultType="java.lang.String">
+        select userid from userdepartmentmessage where departmentid=#{departmentId}
+    </select>
+
+    <insert id="BDUserIdToDepartment">
+        insert into userdepartmentmessage(departmentid,userid,createtime,updatetime) values (#{departmentId},#{userId},#{createTime},#{updateTime})
+    </insert>
+
+    <select id="getDepartmentUsers" resultType="com.zhengze.usermanagement.facade.response.dto.UserDto">
+        select ud.userid as userId,u.username as userName from userdepartmentmessage ud,usermessage u where ud.departmentId=#{departmentId} and u.userid=ud.userid
+    </select>
+</mapper>
