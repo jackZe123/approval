@@ -12,5 +12,17 @@
         <result column="updatetime" property="updateTime"/>
     </resultMap>
 
+    <select id="getFunctionMessages" resultType="com.zhengze.roleauthoritymanagement.facade.response.FunctionMessage">
+        select functionid as functionId,functionname as functionName,`describe` as `describe`,
+        createtime as createTime,updatetime as updateTime from functionmessage
+    </select>
 
+    <insert id="insertFunctionMessage">
+        insert into functionmessage(functionid,functionname,describe,createtime,updatetime) values (#{functionId},#{functionName},#{describe},#{createTime},#{updateTime})
+    </insert>
+
+    <update id="updateFunctionMessage">
+        update functionmessage set functionname = #{functionName},describe=#{describe},
+        updateTime=#{updateTime} where functionid=#{functionId}
+    </update>
 </mapper>

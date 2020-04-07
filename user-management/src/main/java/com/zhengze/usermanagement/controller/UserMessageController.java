@@ -7,6 +7,7 @@ import com.zhengze.usermanagement.common.enums.BizErrorEnum;
 import com.zhengze.usermanagement.dao.UserMessageDao;
 import com.zhengze.usermanagement.facade.request.*;
 import com.zhengze.usermanagement.facade.response.GetDepartmentMessageResponse;
+import com.zhengze.usermanagement.facade.response.GetUserMessageListResponse;
 import com.zhengze.usermanagement.facade.response.GetUserMessageResponse;
 import com.zhengze.usermanagement.service.UserService;
 import org.apache.commons.lang.StringUtils;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sun.plugin2.message.GetAppletMessage;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -38,10 +40,10 @@ public class UserMessageController {
      * @return
      */
     @PostMapping("/getUserMessage")
-    public BaseEntityResponse<List<GetUserMessageResponse>> getUserMessage(){
-        BaseEntityResponse  <List<GetUserMessageResponse>> resp = BaseEntityResponse.success(BaseEntityResponse.class);
+    public BaseEntityResponse<GetUserMessageListResponse> getUserMessage(GetUserMessageRequest request){
+        BaseEntityResponse  <GetUserMessageListResponse> resp = BaseEntityResponse.success(BaseEntityResponse.class);
         try {
-            List<GetUserMessageResponse> userMessageDao = userService.getUserMessage();
+            GetUserMessageListResponse userMessageDao = userService.getUserMessage(request);
             resp.setData(userMessageDao);
         }catch (Exception e){
             e.printStackTrace();

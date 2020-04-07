@@ -3,6 +3,7 @@ package com.zhengze.usermanagement.service;
 import com.zhengze.usermanagement.dao.UserMessageDao;
 import com.zhengze.usermanagement.facade.request.*;
 import com.zhengze.usermanagement.facade.response.GetDepartmentMessageResponse;
+import com.zhengze.usermanagement.facade.response.GetUserMessageListResponse;
 import com.zhengze.usermanagement.facade.response.GetUserMessageResponse;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import java.util.List;
  */
 
 public interface UserService {
-    List<GetUserMessageResponse> getUserMessage();
+    GetUserMessageListResponse getUserMessage(GetUserMessageRequest request);
     Boolean insertMessage(InsertUserRequest request);
     Boolean deleteUser(DeleteUserRequest request);
     Boolean BDRoleByUserId(BDRoleRequest request);

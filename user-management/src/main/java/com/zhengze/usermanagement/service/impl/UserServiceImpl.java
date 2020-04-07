@@ -1,5 +1,7 @@
 package com.zhengze.usermanagement.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zhengze.roleauthoritymanagement.dao.RoleMessageDao;
 import com.zhengze.usermanagement.common.BaseEntityResponse;
 import com.zhengze.usermanagement.common.enums.BizErrorEnum;
@@ -8,6 +10,7 @@ import com.zhengze.usermanagement.dao.DepartmentMessageDao;
 import com.zhengze.usermanagement.dao.UserMessageDao;
 import com.zhengze.usermanagement.facade.request.*;
 import com.zhengze.usermanagement.facade.response.GetDepartmentMessageResponse;
+import com.zhengze.usermanagement.facade.response.GetUserMessageListResponse;
 import com.zhengze.usermanagement.facade.response.GetUserMessageResponse;
 import com.zhengze.usermanagement.facade.response.dto.UserDto;
 import com.zhengze.usermanagement.mapper.DepartmentMessageMapper;
@@ -48,13 +51,18 @@ public class UserServiceImpl implements UserService {
     private UserDepartmentMessageMapper userDepartmentMessageMapper;
 
     @Override
-    public List<GetUserMessageResponse> getUserMessage() {
+    public GetUserMessageListResponse getUserMessage(GetUserMessageRequest request) {
+        GetUserMessageListResponse responses = new GetUserMessageListResponse();
         List<GetUserMessageResponse> userMessageDaos = userMessageMapper.getUserMessage();
         BaseEntityResponse<Map<String, RoleMessageDao>> roleMaps = roleService.getAllRoleMessage();
         for (GetUserMessageResponse response:userMessageDaos){
             response.setRoleName(roleMaps.getData().get(response.getRoleId()).getRoleName());
         }
-        return userMessageDaos;
+        PageHelper.startPage(request.getPageIndex(),request.getPageSize());
+        PageInfo pageInfo = new PageInfo(userMessageDaos);
+        responses.setGetUserMessageResponses(pageInfo.getList());
+        responses.setTotal(pageInfo.getTotal());
+        return responses;
     }
 
     @Override
