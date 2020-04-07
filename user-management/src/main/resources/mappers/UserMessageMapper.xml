@@ -22,7 +22,7 @@
     </select>
 
     <insert id="insertUserMessage">
-        insert into usermessage(userid,username,password,status,createtime,updatetime) values (#{userId},#{userName},#{password},#{status},#{createTime},#{updateTime})
+        insert into usermessage(userid,username,password,telephone,status,createtime,updatetime) values (#{userId},#{userName},#{password},#{telephone},1,#{createTime},#{updateTime})
     </insert>
 
     <delete id="deleteUser">
@@ -33,4 +33,14 @@
         update userrolemessage set roleid=#{roleId} where userid = #{userId}
     </update>
 
+    <select id="userLogin" resultType="java.lang.Integer">
+        select count(*) from usermessage u, userrolemessage ur,rolemessage r where u.telephone=#{telephone}
+        and u.password = #{password} and r.rolename=#{roleName} and u.userid = ur.userid and ur.roleid=r.roleid
+    </select>
+    <select id="getRoleId" resultType="java.lang.Integer">
+        select count(*) from userrolemessage where userid=#{userid}
+    </select>
+    <update id="BDuserRole">
+        insert into userrolemessage(userid,roleid,createtime,updatetime) values (#{userid},#{roleid},#{createtime},#{updatetime});
+    </update>
 </mapper>

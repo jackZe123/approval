@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -69,8 +70,8 @@ public class UserServiceImpl implements UserService {
         if (!password){
             throw new RuntimeException("密码格式不对，密码长度必须在6-12位，包含数字和字母");
         }
-//        String md5_pwd = MD5Util.getMD5(request.getPassword());
-        Integer result = userMessageMapper.insertUserMessage(userId,request.getUserName(),request.getPassword(),request.getTelephone(),request.getStatus(),createTime,updateTime);
+        String md5_pwd = MD5Util.getMD5(request.getPassword());
+        Integer result = userMessageMapper.insertUserMessage(userId,request.getUserName(),md5_pwd,request.getTelephone(),request.getStatus(),createTime,updateTime);
         if (result>=1){
             return  true;
         }
@@ -88,7 +89,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean BDRoleByUserId(BDRoleRequest request) {
-        Integer flag = userMessageMapper.updateUserRole(request.getUserId(),request.getRoleId());
+        Integer flag = 0;
+        Integer result = userMessageMapper.getRoleId(request.getUserId());
+        if (result>=1){
+            flag = userMessageMapper.updateUserRole(request.getUserId(),request.getRoleId());
+        }else {
+            flag = userMessageMapper.BDuserRole(request.getUserId(),request.getRoleId(),new Date(),new Date());
+        }
         if (flag>=1){
             return true;
         }
@@ -165,6 +172,20 @@ public class UserServiceImpl implements UserService {
         List<UserDto> userDtos = userDepartmentMessageMapper.getDepartmentUsers(dao.getDepartmentId());
         response.setUsers(userDtos);
         return response;
+    }
+
+    @Override
+    public Boolean userLogin(LoginRequest request) {
+        if (StringUtils.isEmpty(request.getTelephone())||StringUtils.isEmpty(request.getPassword())||StringUtils.isEmpty(request.getRole()))
+        {
+            throw new RuntimeException("参数为空");
+        }
+        String md5_password = MD5Util.getMD5(request.getPassword());
+        Integer result = userMessageMapper.userLogin(request.getTelephone(),md5_password,request.getRole());
+        if (result>=1){
+            return true;
+        }
+        return false;
     }
 
     public Boolean checkUserPassword(String password) {

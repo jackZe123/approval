@@ -15,12 +15,13 @@ import java.util.List;
  */
 
 public interface UserService {
-    public List<GetUserMessageResponse> getUserMessage();
-    public Boolean insertMessage(InsertUserRequest request);
-    public Boolean deleteUser(DeleteUserRequest request);
-    public Boolean BDRoleByUserId(BDRoleRequest request);
-    public Boolean addDepartmentMessage(AddDepartmentRequest request);
-    public Boolean BDuserForDepartment(BDuserForDepartmentRequest request);
-    public List<GetDepartmentMessageResponse> getDepartmentMessage();
-    public GetDepartmentMessageResponse getDeaprtmentMessageByDepartmentId(String deaprtmentId);
+    List<GetUserMessageResponse> getUserMessage();
+    Boolean insertMessage(InsertUserRequest request);
+    Boolean deleteUser(DeleteUserRequest request);
+    Boolean BDRoleByUserId(BDRoleRequest request);
+    Boolean addDepartmentMessage(AddDepartmentRequest request);
+    Boolean BDuserForDepartment(BDuserForDepartmentRequest request);
+    List<GetDepartmentMessageResponse> getDepartmentMessage();
+    GetDepartmentMessageResponse getDeaprtmentMessageByDepartmentId(String deaprtmentId);
+    Boolean userLogin(LoginRequest request);
 }

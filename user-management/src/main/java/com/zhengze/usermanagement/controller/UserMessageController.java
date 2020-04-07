@@ -1,6 +1,7 @@
 package com.zhengze.usermanagement.controller;
 
 import com.zhengze.usermanagement.common.BaseEntityResponse;
+import com.zhengze.usermanagement.common.Const;
 import com.zhengze.usermanagement.common.ResponseCode;
 import com.zhengze.usermanagement.common.enums.BizErrorEnum;
 import com.zhengze.usermanagement.dao.UserMessageDao;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -85,6 +87,30 @@ public class UserMessageController {
         }
         return resp;
     }
+
+    /**
+     * 登录
+     */
+    @PostMapping("/userLogin")
+    public BaseEntityResponse<Boolean> userLogin(@RequestBody LoginRequest request, HttpSession session){
+        BaseEntityResponse  <Boolean> resp = BaseEntityResponse.success(BaseEntityResponse.class);
+        if (request==null){
+            resp.setMessage(ResponseCode.PARAM_IS_ERROR.getDesc());
+            return  resp;
+        }
+        try {
+            Boolean flag = userService.userLogin(request);
+            if (flag){
+                session.setAttribute(Const.CURRENT_USER,request.getTelephone());
+            }
+            resp.setData(flag);
+        }catch (Exception e){
+            e.printStackTrace();
+            resp =  new BaseEntityResponse<Boolean>(BizErrorEnum.CALLSERVICCE_ERROR.getCode(), e.getMessage());
+        }
+        return resp;
+    }
+
 
     /**
      * 为用户绑定角色
@@ -164,7 +190,7 @@ public class UserMessageController {
     /**
      * 获取单个部门信息和部门人员信息
      */
-    @PostMapping("getDepartmentMessage")
+    @PostMapping("getDepartmentMessageByDepengId")
     public BaseEntityResponse<GetDepartmentMessageResponse> getDepartmentMessageByDepengId(@RequestBody GetDepartmentRequest request){
         BaseEntityResponse<GetDepartmentMessageResponse> resp = BaseEntityResponse.success(BaseEntityResponse.class);
         if (request==null|| StringUtils.isEmpty(request.getDepartmentId())){
