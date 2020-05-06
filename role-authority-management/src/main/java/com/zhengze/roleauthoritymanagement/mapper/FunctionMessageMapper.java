@@ -19,4 +19,6 @@ public interface FunctionMessageMapper {
     List<FunctionMessage> getFunctionMessages();
     Integer insertFunctionMessage(@Param("functionId")String functionId, @Param("functionName")String functionName,@Param("describe")String describe, @Param("createTime") Date createTime, @Param("updateTime")Date updateTime);
     Integer updateFunctionMessage(@Param("functionId")String functionId,@Param("functionName")String functionName,@Param("describe")String describe,@Param("updateTime")Date updateTime);
+    Integer deleteFunctionMessage(@Param("functionId")String functionId);
+    List<String> getFunctionMessagesByRoleId(@Param("roleId") String roleId);
 }

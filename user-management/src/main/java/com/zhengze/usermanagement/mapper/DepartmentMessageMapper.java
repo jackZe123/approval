@@ -18,7 +18,14 @@ public interface DepartmentMessageMapper {
 
     public Integer addDepartmentMessage(@Param("departmentId")String departmentId, @Param("departmentName")String departmentName, @Param("describle")String describle, @Param("managerId")String managerId, @Param("managerName")String managerName, @Param("groupLeaderId")String groupLeaderId, @Param("groupLeaderName")String groupLeaderName, @Param("createTime") Date createTime, @Param("updateTime")Date updateTime);
 
+    public Integer deleteDepartmentMessage(@Param("departmentId")String departmentId);
+
+    public Integer updateDepartmentMessage(@Param("departmentId")String departmentId,@Param("departmentName")String departmentName, @Param("describe")String describe, @Param("managerId")String managerId, @Param("managerName")String managerName, @Param("groupLeaderId")String groupLeaderId, @Param("groupLeaderName")String groupLeaderName, @Param("updateTime")Date updateTime);
+
     public List<DepartmentMessageDao> getDepartmentMessage();
 
     public DepartmentMessageDao getDepartmentMessageByDepartmentId(@Param("departmentId")String departmentId);
+
+    public DepartmentMessageDao getDepartmentMessageByGroupId(@Param("groupId")String groupId);
+
 }

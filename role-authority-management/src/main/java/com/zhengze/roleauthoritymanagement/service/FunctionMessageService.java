@@ -4,6 +4,7 @@ import com.zhengze.roleauthoritymanagement.facade.request.FunctionRequest;
 import com.zhengze.roleauthoritymanagement.facade.request.UpdateFunctionRequest;
 import com.zhengze.roleauthoritymanagement.facade.response.FunctionMessage;
 import com.zhengze.roleauthoritymanagement.facade.response.FunctionMessageResponse;
+import com.zhengze.roleauthoritymanagement.facade.response.GetFunctionMessageResponse;
 
 import java.util.List;
 
@@ -16,4 +17,7 @@ public interface FunctionMessageService {
     FunctionMessageResponse getPageFunctionMessages(FunctionRequest request);
     List<FunctionMessage> getFunctionMessages();
     Boolean updateFunctionMessage(UpdateFunctionRequest request);
+    Boolean deleteFunctionMessage(String functionId);
+
+    GetFunctionMessageResponse getFunctionMessage(String roleName);
 }

@@ -18,5 +18,11 @@ public interface UserDepartmentMessageMapper {
 
     Integer BDUserIdToDepartment(@Param("userId")String userId, @Param("departmentId")String departmentId, @Param("createTime") Date createTime,@Param("updateTime")Date updateTime);
 
+    Integer deleteUserDepartmentByUserId(@Param("departmentId")String departmentId);
+
     List<UserDto> getDepartmentUsers(@Param("departmentId")String departmentId);
+
+    String getDepartmentIdByUserId(@Param("userId")String userId);
+
+    Integer deleteUserDepartment(@Param("departmentId")String departmentId,@Param("userId")String userId);
 }

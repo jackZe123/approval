@@ -18,10 +18,21 @@
     <insert id="addDepartmentMessage">
         insert into departmentmessage(departmentid,departmentname,describle,managerid,managername,groupleaderid,groupleadername,createtime,updatetime) values (#{departmentId},#{departmentName},#{describle},#{managerId},#{managerName},#{groupLeaderId},#{groupLeaderName},#{createTime},#{updateTime})
     </insert>
+    <delete id="deleteDepartmentMessage">
+        delete  from departmentmessage where departmentid=#{departmentId}
+    </delete>
+    <update id="updateDepartmentMessage">
+        update departmentmessage set departmentname = #{departmentName},describle=#{describe},
+        managerid=#{managerId},managername = #{managerName},groupleaderid=#{groupLeaderId},
+        groupleadername=#{groupLeaderName},updatetime = #{updateTime} where departmentid=#{departmentId}
+    </update>
     <select id="getDepartmentMessage" resultType="com.zhengze.usermanagement.dao.DepartmentMessageDao">
         select * from departmentmessage
     </select>
     <select id="getDepartmentMessageByDepartmentId" resultType="com.zhengze.usermanagement.dao.DepartmentMessageDao">
         select * from departmentmessage where departmentid=#{departmentId}
+</select>
+    <select id="getDepartmentMessageByGroupId" resultType="com.zhengze.usermanagement.dao.DepartmentMessageDao">
+        select * from  departmentmessage where groupleaderid=#{groupId}
     </select>
 </mapper>

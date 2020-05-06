@@ -4,6 +4,7 @@ import com.zhengze.roleauthoritymanagement.dao.RoleMessageDao;
 import com.zhengze.usermanagement.common.BaseEntityResponse;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Map;
 
@@ -17,4 +18,7 @@ public interface RoleService {
 
     @PostMapping("/role/getAllRoleMessage")
     BaseEntityResponse<Map<String, RoleMessageDao>>  getAllRoleMessage();
+
+    @PostMapping("/role/getRoleIdByRoleName")
+    BaseEntityResponse<String> getRoleIdByRoleName(@RequestBody String roleName);
 }

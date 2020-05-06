@@ -14,13 +14,13 @@ import java.util.List;
 @Data
 public class GetDepartmentMessageResponse {
     private String departmentId;
-    private String departmentName;
-    private String describle;
+    private String departmentName;//部门名称
+    private String describe;//部门描述
     private String managerId;
-    private String managerName;
+    private String managerName;//经理名称
     private String groupLeaderId;
-    private String groupLeaderName;
-    private String createTime;
-    private String updateTime;
-    private List<UserDto> users;
+    private String groupLeaderName;//组长名称
+    private String createTime;//创建时间
+    private String updateTime;//更新时间
+    private String users;//组员
 }

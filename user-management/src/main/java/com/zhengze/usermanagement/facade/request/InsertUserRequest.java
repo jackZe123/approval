@@ -15,5 +15,5 @@ public class InsertUserRequest implements Serializable {
     private String userName;
     private String password;
     private String telephone;
-    private Integer status;
+    private String roleName;
 }

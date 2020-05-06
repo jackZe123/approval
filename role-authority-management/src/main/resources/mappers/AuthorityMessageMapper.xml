@@ -12,5 +12,13 @@
         <result column="updatetime" property="updateTime"/>
     </resultMap>
 
-
+<select id="getAuthoritysByRoleId" resultType="java.lang.String">
+    select  functionname from functionmessage ,authoritymessage where functionmessage.functionid=authoritymessage.functionid and authoritymessage.roleid=#{roleId}
+</select>
+    <delete id="deleteAuthorityByRoleId">
+        delete from authoritymessage where roleid=#{roleId}
+    </delete>
+    <insert id="insertAuthority">
+        insert into authoritymessage(authorityid,roleid,functionid,createtime,updatetime) values (#{authorityId},#{roleId},#{functionID},#{createTime},#{updateTime})
+    </insert>
 </mapper>

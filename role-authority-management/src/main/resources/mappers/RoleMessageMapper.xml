@@ -23,4 +23,21 @@
     <select id="getAllRoles" resultType="com.zhengze.roleauthoritymanagement.dao.RoleMessageDao">
         select * from rolemessage
     </select>
+
+    <select id="getRoleIdByRoleName" resultType="java.lang.String">
+        select  roleid from rolemessage where rolename=#{roleName}
+    </select>
+
+    <delete id="deleteRoleMessage">
+        delete  from rolemessage where roleid=#{roleId}
+    </delete>
+
+    <insert id="addRoleMessage">
+        insert into rolemessage(roleid,rolename,describle,createtime,updatetime)values (#{roleId},#{roleName},#{describle},#{createTime},#{updateTime})
+    </insert>
+
+    <update id="updateRoleMessage">
+        update rolemessage set rolename=#{roleName},describle=#{describle},updatetime=#{updateTime}
+        where roleid =#{roleId}
+    </update>
 </mapper>

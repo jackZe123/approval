@@ -9,7 +9,7 @@ import lombok.Data;
  */
 @Data
 public class UpdateFunctionRequest {
-    private String functionId;
+    private String functionId=null;
     private String functionName;
     private String describe;
 }

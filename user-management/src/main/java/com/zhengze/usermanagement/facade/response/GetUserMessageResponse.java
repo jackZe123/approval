@@ -23,4 +23,5 @@ public class GetUserMessageResponse {
     private Date updateTime;
     private String roleId;
     private String roleName;
+    private String statu;
 }

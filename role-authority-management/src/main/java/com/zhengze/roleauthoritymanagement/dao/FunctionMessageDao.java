@@ -16,7 +16,7 @@ public class FunctionMessageDao implements Serializable {
     private Integer id;
     private String functionId;
     private String functionName;
-    private String describe;
+    private String describle;
     private Date createTime;
     private Date updateTime;
 }

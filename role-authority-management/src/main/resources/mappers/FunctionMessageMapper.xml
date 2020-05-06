@@ -7,22 +7,29 @@
         <id column="id" property="id" />
         <result column="functionid" property="functionId" />
         <result column="functionname" property="functionName" />
-        <result column="describe" property="describe" />
+        <result column="describe" property="describle" />
         <result column="createtime" property="createTime" />
         <result column="updatetime" property="updateTime"/>
     </resultMap>
 
     <select id="getFunctionMessages" resultType="com.zhengze.roleauthoritymanagement.facade.response.FunctionMessage">
-        select functionid as functionId,functionname as functionName,`describe` as `describe`,
+        select functionid as functionId,functionname as functionName,`describle` as `describe`,
         createtime as createTime,updatetime as updateTime from functionmessage
     </select>
 
     <insert id="insertFunctionMessage">
-        insert into functionmessage(functionid,functionname,describe,createtime,updatetime) values (#{functionId},#{functionName},#{describe},#{createTime},#{updateTime})
+        insert into functionmessage(functionid,functionname,describle,createtime,updatetime) values (#{functionId},#{functionName},#{describe},#{createTime},#{updateTime})
     </insert>
 
     <update id="updateFunctionMessage">
-        update functionmessage set functionname = #{functionName},describe=#{describe},
+        update functionmessage set functionname = #{functionName},describle=#{describe},
         updateTime=#{updateTime} where functionid=#{functionId}
     </update>
+    <delete id="deleteFunctionMessage">
+        delete  from functionmessage where functionid=#{functionId}
+    </delete>
+
+    <select id="getFunctionMessagesByRoleId" resultType="java.lang.String">
+        select functionname from functionmessage,authoritymessage where authoritymessage.roleid=#{roleId} and authoritymessage.functionid=functionmessage.functionid
+    </select>
 </mapper>

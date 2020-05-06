@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1.0
  * @date :2020/3/7 17:45
  */
+
 @RestController
 @RequestMapping("/role/authority")
 public class AuthorityMessageController {
+
 }

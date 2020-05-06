@@ -21,6 +21,14 @@
          from usermessage u,userrolemessage r where u.userid=r.userid
     </select>
 
+    <select id="getUserMessageByTelephone"
+            resultType="com.zhengze.usermanagement.facade.response.GetUserMessageResponse">
+         select u.userid as userId,u.userName as userName,u.password as password,
+         u.telephone as telephone,u.status as status,u.createtime as createtime,
+         u.updatetime as updateTime
+         from usermessage u where u.telephone=#{telephone}
+    </select>
+
     <insert id="insertUserMessage">
         insert into usermessage(userid,username,password,telephone,status,createtime,updatetime) values (#{userId},#{userName},#{password},#{telephone},1,#{createTime},#{updateTime})
     </insert>
@@ -42,5 +50,16 @@
     </select>
     <update id="BDuserRole">
         insert into userrolemessage(userid,roleid,createtime,updatetime) values (#{userid},#{roleid},#{createtime},#{updatetime});
+    </update>
+    <update id="updateUserMessage">
+        update usermessage set username =#{username},telephone=#{telephone},
+        status=#{status},updateTime=#{updateTime} where userid=#{userid}
+    </update>
+    <select id="getUserNameByUserId" resultType="java.lang.String">
+        select username from usermessage where userid=#{userid}
+    </select>
+    <update id="updateUserMessageByUserId">
+         update usermessage set username =#{username},telephone=#{telephone},
+         password = #{password},updateTime=#{updateTime} where userid=#{userid}
     </update>
 </mapper>

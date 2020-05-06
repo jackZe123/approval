@@ -1,6 +1,10 @@
 package com.zhengze.roleauthoritymanagement.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author zhengze
@@ -9,4 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface AuthorityMessageMapper {
+    public List<String> getAuthoritysByRoleId(@Param("roleId")String roleId);
+    public Integer deleteAuthorityByRoleId(@Param("roleId")String roleId);
+    public Integer insertAuthority(@Param("authorityId")String authorityId,@Param("roleId")String roleId,@Param("functionID")String functionId,@Param("createTime")Date createTime,@Param("updateTime") Date updateTime);
 }

@@ -19,7 +19,19 @@
         insert into userdepartmentmessage(departmentid,userid,createtime,updatetime) values (#{departmentId},#{userId},#{createTime},#{updateTime})
     </insert>
 
+    <delete id="deleteUserDepartmentByUserId">
+        delete  from userdepartmentmessage where departmentid=#{departmentId}
+    </delete>
+
     <select id="getDepartmentUsers" resultType="com.zhengze.usermanagement.facade.response.dto.UserDto">
         select ud.userid as userId,u.username as userName from userdepartmentmessage ud,usermessage u where ud.departmentId=#{departmentId} and u.userid=ud.userid
     </select>
+
+    <select id="getDepartmentIdByUserId" resultType="java.lang.String">
+        select departmentid from userdepartmentmessage where userid=#{userId}
+    </select>
+
+    <delete id="deleteUserDepartment">
+        delete from userdepartmentmessage where departmentid=#{departmentId} and userid=#{userId}
+    </delete>
 </mapper>

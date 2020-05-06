@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhengze.usermanagement.mapper.ApprovalMessageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zhengze.usermanagement.dao.ApprovalMessageDao">
+        <id column="id" property="id" />
+        <result column="approvalid" property="approvalId" />
+        <result column="userId" property="userId" />
+        <result column="approvalcontent" property="approvalContent" />
+        <result column="beuserid" property="beUserId" />
+        <result column="createtime" property="createTime" />
+        <result column="isPast" property="isPast"/>
+        <result column="reason" property="reason"/>
+        <result column="approvaltime" property="approvalTime" />
+        <result column="goabroad" property="goAbroad" />
+        <result column="nature" property="nature" />
+        <result column="goabroadtime" property="goAbroadTime" />
+        <result column="outabroadtime" property="outAbroadTime" />
+        <result column="userName" property="userName"/>
+    </resultMap>
+
+    <insert id="insertApprovalMessage">
+        insert into approvalmessage(approvalid,userId,approvalcontent,beuserid,createtime,isPast,reason,goabroad,nature,goabroadtime,outabroadtime,userName) values (#{approvalid},#{userId},#{approvalContent},#{beUserid},#{createtime},#{IsPast},#{Reason},#{goAbroad},#{nature},#{goAbroadTime},#{outAbroadTime},#{username})
+    </insert>
+
+    <insert id="submitApprovalMessage">
+        insert into approvalmessage(approvalid,userId,approvalcontent,beuserid,createtime,isPast,reason,goabroad,nature,goabroadtime,outabroadtime) values (#{approvalid},#{userId},#{approvalContent},#{beUserid},#{createtime},#{IsPast},#{Reason},#{goAbroad},#{nature},#{goAbroadTime},#{outAbroadTime})
+    </insert>
+
+    <update id="updateApprovalMessage">
+        update approvalmessage set isPast =#{isPast},reason = #{reason},approvaltime=#{approvaltime} where approvalid=#{approvalid} and beuserid = #{beuserid}
+    </update>
+
+    <select id="getNotDealApprovals" resultType="com.zhengze.usermanagement.dao.ApprovalMessageDao">
+        select * from approvalmessage where  beuserid=#{beuserId} and isPast =2
+    </select>
+
+    <select id="getApprovalMessages" resultType="com.zhengze.usermanagement.dao.ApprovalMessageDao">
+        select * from approvalmessage where approvalid=#{approvalid}
+    </select>
+
+    <select id="getApplyApprovalMessages" resultType="com.zhengze.usermanagement.dao.ApprovalMessageDao">
+        select * from approvalmessage where username is not null
+    </select>
+
+    <select id="getAllApprovalIdByUserId" resultType="java.lang.String">
+        select distinct  approvalid from approvalmessage where  beuserid=#{userId} or userId=#{userId}
+    </select>
+
+    <select id="getApprovalIdByUserId" resultType="java.lang.String">
+        select distinct  approvalid from approvalmessage where  beuserid=#{userId} and isPast=0 or isPast=1
+    </select>
+
+    <select id="getNewApprovalIdByUserId" resultType="java.lang.String">
+        select distinct  approvalid from approvalmessage where userId=#{userId} and userName is not null
+    </select>
+</mapper>
